@@ -1,0 +1,299 @@
+e1:
+  title: "Example 1: Change something in the main layout"
+  body: |
+    #### Step 1:
+
+     Find the view to overwrite. It may be defined on any module!
+
+    `TIP` Use the inspector tools in your browser to locate something unique (more or less)
+
+    ![](1e1p1.png)
+
+    `TIP` Search in https://github.com/decidim/decidim for the located identifier
+
+    ![](1e1p2.png)
+
+    `PRO-TIP!` Download the source code of Decidim, Open Visual Studio Code and search for that identifier locally!
+
+    #### Step 2:
+
+    1. Copy the file `decidim-core/app/views/layouts/decidim/_wrapper.html.erb` in your editor.
+    2. Change what you need.
+    3. Save it in your own place replicating the folder structure (`app/views/layouts/decidim/_wrapper.html.erb`)
+
+    ![](1e1p3.png)
+
+    #### Step 3:
+
+     🎉 Check in local! http://localhost:3000/
+
+    ![](1e1p4.png)
+
+    ---
+
+    `PRO-TIP!` Now is a good time to:  `git commit -a -m "add cool tweaks text"
+
+    > **Feeling lazy?**
+    >
+    > Check this out 👉 https://github.com/Platoniq/decidim-hacks/tree/example1
+
+e2:
+  title: "Example 2: Change some styles in the main layout"
+  body: |
+    #### Step 1:
+
+    Find the CSS-style to overwrite. It may be defined on any module!
+
+    `TIP` Use the inspector tools in your browser to locate and manipulate the css class(es) implicated
+
+    ![](1e2p1.png)
+
+    #### Step 2:
+
+    Copy the changed CSS into a new file in our custom autoloading folder
+
+    ![](1e2p2.png)
+
+    #### Step 3:
+
+    🍾 Check in local! http://localhost:3000/
+
+    ![](1e2p3.png)
+
+    ---
+
+    `PRO-TIP!`  You’re not a hacker if you don’t `git commit -a -m "add 90’s background"`
+
+    > **In "just show me the code" mood?**
+    >
+    > Check this out 👉 https://github.com/Platoniq/decidim-hacks/tree/example2
+
+e3:
+  title: "Example 3: Add some Javascript"
+  body: |
+    **In this example we will apply also changes in CSS and HTML.**
+
+    We will change the default behaviour of the main Hero’s text image by:
+
+    1. Adding an external jQuery plugin
+    2. Overwriting the html view to show a custom text instead of the text from admin settings
+    3. Add a custom JS file
+
+    ![](1e3p1.gif)
+
+    `PRO-TIP!` Bad taste is a must for a hacker!
+
+    #### Step 1:
+
+    Add the jQuery plugin to the system.
+
+    1) Download the jQuery plugin from:
+
+       https://github.com/peachananr/simple-text-rotator
+
+       a) JS file: `vendor/assets/javascripts/jquery.simple-text-rotator.js`
+
+       b) CSS file: `vendor/assets/stylesheets/simpletextrotator.css`
+
+
+    2) Edit `application.css` & `application.js` and tell them to require the downloaded files.
+
+    ![](1e3p2.png)
+
+    `IMPORTANT!` RELOAD THE SERVER NOW:
+
+    ```bash
+    docker-compose exec app bin/rails restart
+    ```
+
+    #### Step 2:
+
+    Find the view to overwrite.
+
+    `TIP` Use the inspector tools in your browser to locate a useful identifier (ie: `hero-heading`)
+
+    ![](1e3p3.png)
+
+    `hero-heading` seems reasonably unique
+
+    `NOTE:` It is not a regular **html.erb** file!
+
+    ![](1e3p4.png)
+
+    #### Step 3:
+
+    Overwrite the original view by creating a new one.
+
+    Replicate folder structure and copy the original file: `decidim-core/app/cells/decidim/content_blocks/hero/show.erb`
+
+    # ⬇⬇⬇
+
+    In our folder: `app/cells/decidim/content_blocks/hero/show.erb`
+
+    #### Step 4:
+
+    Edit the file. `app/cells/decidim/content_blocks/hero/show.erb`
+
+    We will remove any string coming from the database (sorry admins, no more Hero editing for you) and put a fixed phrase:
+
+    ![](1e3p5.png)
+
+    ```html
+    Decidim Hacks is a <span class="rotate">cool, sexy, awesome, amazing, massive, terrible</span><br>place
+    ```
+
+    #### Step 5:
+
+    Create your own javascript that initializes everything, for instance: `app/assets/javascripts/autoinclude/hero-fx.js`
+
+    ![](1e3p6.png)
+
+    🍾 Check in local! http://localhost:3000/
+
+    #### Recapitulation:
+
+    **Files changed:**
+
+    ![](1e3p7.png)
+
+    **Steps:**
+
+    1. Added external (vendor) javascript/css to the project
+    2. Configured Rails to load those files
+    3. Restarted Rails
+    4. Overwritten the Hero view.
+    5. Applied some custom javascript (activate the plugin)
+
+
+    #### Step 6:
+
+    🎆 Enjoy something kitsch! http://localhost:3000/
+
+    ![](1e3p8.gif)
+
+    ---
+
+    `PRO-TIP!` Hackers like to  git commit -a -m "add the coolest fx ever"
+
+    > **Cheeting again?**
+    >
+    > Check this out 👉 https://github.com/Platoniq/decidim-hacks/tree/example3
+
+e4:
+  title: "Example 4: Add custom locales"
+  body: |
+    **In this example we will create a new FX like the previous example to use multi-language texts.**
+
+    We will:
+
+    1. Create the list of words that rotate as independent text entries in the app locales folder.
+    2. Create a “helper” ruby method that will list the words for us in the view.
+    3. Add a new javascript file to take care of this case.
+
+    `NOTE:` Helpers cannot be defined this way in the previous example (it is not a regular rails **html.erb** file).
+
+    #### Step 1:
+
+    Edit the locales file: `config/locales/en.yml`
+
+    Add some content in the YAML format:
+
+    ![](1e4p1.png)
+
+    #### Step 2:
+
+    Edit the layout file: `app/views/layouts/decidim/_wrapper.html.erb`
+
+    Change the previous “*Cool tweaks*” for the method we are going to use:
+
+    ![](1e4p2.png)
+
+    #### Step 3:
+
+    Edit the helper’s file: `app/helpers/application_helpers.rb`
+
+    Create the method `fancy_words`:
+
+    ![](1e4p3.png)
+
+    #### Step 5:
+
+    Recapitulation:
+
+    ![](1e4p4.png)
+
+    🥂 Celebrate! http://localhost:3000/
+
+    ![](1e4p5.gif)
+
+    ---
+
+    `PRO-TIP!` Hackers are humans too...  `git commit -a -m "😭 please no more effects..."`
+
+    > **Too much? Don't stress yourself**
+    >
+    > Check this out 👉 https://github.com/Platoniq/decidim-hacks/tree/example4
+
+e5:
+  title: "Example 5: Overwrite non-configurable settings"
+  body: |
+    **In this example we will monkey-patch the Proposals method that check the titles of the proposals**
+
+    We will:
+
+    1. Identify the Proposal validation method
+    2. Create a new initializer and overwrite the method to allow more flexible titles in proposals
+
+    ![](1e5p1.png)
+
+    #### Step 1:
+
+    Find the class with the method.
+
+    This can be difficult and requires time to study the code to do it properly. But… we’re feeling brave!
+
+    `TIP:` start to search for the locale key and then where is it placed in the code:
+
+    ![](1e5p2.png)
+
+    Search where the locale key is used:
+
+    ![](1e5p3.png)
+
+    #### Step 2:
+
+    Create a new initializer file. It will be used to monkey-patch the method found.
+
+    For instance: `config/initializers/bananas_for_proposals.rb`
+
+    Also: open the original file to copy and analize what we need.
+
+    ![](1e5p4.png)
+
+    #### Step 3:
+
+    Edit the file and and register our hook for the class we want to monkeypatch.
+
+    Copy the method exactly as it is. Then modify what you want.
+
+    ![](1e5p5.png)
+
+    #### Step 4:
+
+    Reload the server. Everything modified inside initializers requires a server reload.
+
+    ```bash
+    docker-compose exec app bin/rails restart
+    ```
+
+    🍾 Behaviour modified! 🍻
+
+    ![](1e5p6.png)
+
+    ---
+
+    `PRO-TIP!` That was actually useful  `git commit -a -m "make proposal titles less restrictive"`
+
+    > **You promise to do it some other time? All right...**
+    >
+    > Check this out 👉 https://github.com/Platoniq/decidim-hacks/tree/example5

@@ -1,0 +1,6 @@
+2023-02-14 12:38:50,501 INFO supervisord started with pid 1
+2023-02-14 12:38:51,503 INFO spawned: 'puma' with pid 7
+2023-02-14 12:38:51,504 INFO spawned: 'webpack' with pid 8
+2023-02-14 12:38:53,491 INFO success: puma entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-02-14 12:38:53,492 INFO success: webpack entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-02-14 13:21:56,988 INFO reaped unknown pid 378 (terminated by SIGHUP)

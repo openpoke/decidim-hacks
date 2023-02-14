@@ -22,7 +22,7 @@ COPY ./Gemfile /app/Gemfile
 COPY ./Gemfile.lock /app/Gemfile.lock
 
 RUN bundle update --bundler && \
-		bundle install -j4 --retry 3 && \
+    bundle install -j4 --retry 3 && \
     # Remove unneeded gems
     bundle clean --force && \
     # Remove unneeded files from installed gems (cache, *.o, *.c)

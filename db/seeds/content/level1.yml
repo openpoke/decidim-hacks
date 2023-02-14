@@ -1,0 +1,217 @@
+e1:
+  title:  Configure available languages in the system
+  body: |
+    When creating a new organization in Decidim (in [/system](/system)), the system lets you choose between the locales defined in the file `config/initializers/decidim.rb`. This file by default is generated with 3 languages only, English, Spanish and Catalan.
+
+    So, if you want to create an organization with french language enabled, you need first to edit that file and add all the locales you need.
+
+    Languages in Decidim follow the [ISO 693-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) standard which, basically, is a code of 2 letters (ie: `en`, `ca`, `fr`, ...).
+    Allowed languages can be found in https://github.com/decidim/decidim/blob/master/decidim-core/lib/decidim/core.rb#L135
+
+    #### Add languages to the system
+
+    Open your text editor and edit the file `config/initializers/decidim.rb`
+
+    Then, add all the languages you might need in order to create a new organization:
+
+    ```ruby
+    ...
+      # Change these lines to set your preferred locales
+      config.default_locale = :en
+      config.available_locales = [:en, :ca, :es, :fr, :pt]
+    ...
+    ```
+
+    Save the file and reload rails:
+
+    ```bash
+    docker-compose exec app bin/rails restart
+    ```
+
+    > Any file modified inside the folder `config/initializers` always requires to reload rails.
+
+    #### Create your organization
+
+    Go to [/system](/system), login with the user `system@example.org` with password `decidim123456` and you'll see the available languages in the form to create a new organization.
+
+    ![](system.png)
+
+e2:
+  title:  Change the organization languages after creation
+  body: |
+      Once you've created an organization the [system admin](/system) admin does'nt let you change the languages.
+
+      The main reason is because this operation is delicate as involve many entries in the database
+
+      However, in a newly installed system it shouldn't be a problem.
+
+      To do that we will need:
+
+      #### 1: Edit the configured languages for this Decidim installation.
+
+      Ensure that the file `config/initializers/decidim.rb` has all the `available_locales` that you need.
+      Check [Exercise 1](/e1) for more information.
+
+      #### 2: Log into the rails console to access the database.
+
+      ```bash
+      docker-compose exec app bin/rails c
+      ```
+
+      #### 3: Find the organization you want to modify
+
+      If you have only one organization, just pick up the first from the database, and display current languages:
+
+      ```ruby
+      o = Decidim::Organization.first
+      puts o.available_locales
+      ```
+
+      ![](langs1.png)
+
+      #### 4: Add/remove languages
+
+      Add all the languages you need by appending it to the `available_locales` array:
+
+      ```ruby
+      o.available_locales << "fr"
+      o.available_locales << "de"
+      ```
+
+      You can also remove uneeded languages (although this is an operation that might break the system):
+
+      ```ruby
+      o.available_locales.delete("de")
+      puts o.available_locales
+      ```
+
+      When satisfied, save the organization and exit the console:
+
+      ```ruby
+      o.save!
+      ```
+
+      ![](langs2.png)
+
+      #### 5: Ensure the database is consistent after the modification.
+
+      This specially important if you have deleted a language.
+
+      Internally, Decidim uses and extra table in the database to store all content created in order to perform searches.
+      When we delete a language, this table is out of sync and can lead to errors, so we need to rebuild it.
+
+      To rebuild the search database, copy and paste next operations in the Rails console:
+
+      ```rails
+      Decidim::SearchableResource.destroy_all
+      Decidim::Searchable.searchable_resources.pluck(0).each do |resource|
+        resource.constantize.all.each(&:try_update_index_for_search_resource)
+      end
+      ```
+e3:
+  title: Security updates and new version upgrades
+  body: |
+    Upgrading Decidim requires to deal with the Gemfile file. This is used by Rails in order to know what extra libraries our application needs. The most important library is, of course, the Gem Decidim.
+
+    #### Classic upgrades
+
+    Because Decidim is a gem in our system, to update it we will have to edit our Gemfile and specify the new version number.
+
+    To keep our system up to date, we can visit the page https://github.com/decidim/decidim/releases and compare with our Gemfile. See if the lines specifying the gem called “decidim-something” are followed by the number corresponding to the latest release:
+
+    ```ruby
+    gem "decidim", "0.15.1"
+    gem "decidim-conferences", "0.15.1"
+    gem "decidim-consultations", "0.15.1"
+    gem "decidim-initiatives", "0.15.1"
+
+    gem "decidim-dev", "0.15.1"
+    ```
+
+    For instance, if the latest release is 0.16 we could decide to update.
+
+    To update, usually requires only to change the old version number on these gems to the new one. For instance, previous example should be:
+
+    ```ruby
+    gem "decidim", "0.16"
+    gem "decidim-conferences", "0.16"
+    gem "decidim-consultations", "0.16"
+    gem "decidim-initiatives", "0.16"
+
+    gem "decidim-dev", "0.16"
+    ```
+
+    After doing that, you need to execute these commands:
+
+    ```bash
+    bundle install
+    bin/rails decidim:upgrade
+    bin/rails db:migrate
+    ```
+
+    > Note that there is no `docker-compose exec app` in these commands. This is the way to execute it normally in your production system. If you want to update this repository you will have prefix that in every order.
+
+
+    In theory, that would be all. However, you need to be careful in certain situations, specially if your copy of Decidim has many code modifications. Always try to update in your testing server first, then look for any overwritten file, see if something has changed in order to adapt your customizations.
+
+    #### Custom Decidim Versions
+
+    When using the Gemfile, we are not constrained to a specific versions that is published in http://rubygems.org. We can also specify a specific branch in Github (or any other git repository) and even a local path in our computer.
+    This is specially interesting if we are making changes in the Decidim source code itself but also in order to keep up with security updates.
+
+    Security updates are always released in a branch named after the number version we want to use and the suffix `-stable`. For instance the `0.18` version corresponds to `0.18-stable` branch. These branches receive security updates and critical fixes more often that the gems. It's recommended then to request Decidim directly from the git repository.
+
+    To do that, the best is to create a constant in our Gemfile with the version we want to use (that will point the the Github repository). For the `0.18` version, our Gemfile would like something like this:
+
+    ```ruby
+    # frozen_string_literal: true
+
+    source "https://rubygems.org"
+
+    ruby RUBY_VERSION
+    DECIDIM_VERSION = { git: "https://github.com/decidim/decidim", branch: "0.18-stable" }
+
+    gem "decidim", DECIDIM_VERSION
+    # gem "decidim-consultations", DECIDIM_VERSION
+    # gem "decidim-initiatives", DECIDIM_VERSION
+
+    gem "bootsnap", "~> 1.3"
+    gem "puma", "~> 3.0"
+    gem "uglifier", "~> 4.1"
+    gem "faker", "~> 1.9"
+
+    group :development, :test do
+      gem "byebug", "~> 10.0", platform: :mri
+      gem "decidim-dev", DECIDIM_VERSION
+    end
+
+    group :development do
+      gem "letter_opener_web", "~> 1.3"
+      gem "listen", "~> 3.1"
+      gem "spring", "~> 2.0"
+      gem "spring-watcher-listen", "~> 2.0"
+      gem "web-console", "~> 3.5"
+    end
+    ```
+
+    Then run the update commands:
+
+    ```bash
+    bundle update decidim
+    bin/rails decidim:upgrade
+    bin/rails db:migrate
+    ```
+
+    > When modifying the `Gemfile` is always required to run the command `bundle install` at least.
+    >
+    > When updating Decidim we are only changing the gem Decidim so we need to upgrade it, that's why we use `bundle update decidim` instead of `bundle install`.
+    > The other 2 commands ensure that any change affecting the database is applied as well (some updates do not have any change in the database).
+
+
+    ### Recommendations
+
+    * Make a full backup of the database before updating, just in case something unexpected happens.
+    * If you are more than update away. Always update from one version to the immediately next one and then repeat the process until you are up to date.
+    * Always check the instructions for a certain version upgrade in https://github.com/decidim/decidim/releases. Some releases require to perform certain actions as they may change some database structures. Follow that instructions if you are affected.
+    * Check also the file https://github.com/decidim/decidim/blob/master/CHANGELOG.md It may have relevant information for updates between versions.
+

@@ -1,0 +1,29 @@
+.pokecode-header {
+  background: #800020;
+  color: white;
+  >h1 {
+    background: url(images/pokecode.png) no-repeat left center;
+    background-size: contain;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    padding: .5rem 0 .5rem 2.5rem;
+    margin: .3rem 1rem .3rem;
+    a {
+      color: white;
+    }
+  }
+  .credits {
+    position: absolute;
+    top: 0;
+    right:0;
+    padding: 1em;
+    a {
+      color: white;
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
+    img {
+      max-height: 1em;
+    }
+  }
+}

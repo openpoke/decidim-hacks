@@ -1,0 +1,2 @@
+pwd
+rm tmp/* -rf

@@ -1,0 +1,108 @@
+level1:
+  title:
+    en: Basic Hacking examples (level 1)
+  image: beginners.jpg
+  subtitle:
+    en: Learn some basics to customize Decidim
+  short_description:
+    en: This lesson covers some basics customizations.
+  hashtag: "#decidim-hacks"
+  developer_group:
+    en: Platoniq
+  local_area:
+    en: The Internet
+  target:
+    en: Coders starting with Decidim
+  description:
+    en: |
+      # Basic hacks
+
+      **Congratulations!** If you are seeing this page it means that you've manage to get Docker up and running
+
+      ## Before you start:
+
+      Many of the exercises require 2 basic things:
+
+      1. A proper text editor, there's many (free) options available. If unsure donwload Code:
+         [Visual Studio Code](https://code.visualstudio.com/)
+
+      2. Access to a second terminal meanwhile the one with `docker-compose` is running. This will allow you to log into the emulated machine and access to the Rails console and the database.
+
+      ## Howtos
+
+      These are common operations required in the exercises. Use it as reference:
+
+      #### Reload Rails
+
+      Some changes that you make in the file system requires you to restart the server so Rails reloads the configuration from scratch. There's two ways to do that, either you use the CTRL+C to close `docker-compose` and the execute `docker-compose up` again or you just open another terminal and execute this order:
+
+      ```bash
+      docker-compose exec app bin/rails restart
+      ```
+
+      #### Access the Rails console
+
+      In some exercises you will be asked to access the Rails console. This is a place where to interact with Decidim directly and, mostly, interact with the database.
+
+      Open a new Terminal (while `docker-compose` is up) and navigate to the same folder where you have docker running.
+      Then execute the order:
+
+      ```bash
+      docker-compose exec app bin/rails c
+      ```
+
+      You might have to prefix `sudo` in some systems.
+
+      Once inside, as an example, you can try to access the organization object in the database, this is done with this command:
+
+      ```ruby
+      Decidim.Organization.first
+      ```
+
+      The result should look similar to this:
+
+      ![](console.png)
+
+      ---
+
+      <span style="font-size:0.8em">Cover photo credits: *Beginners by <a href="http://www.nyphotographic.com/">Nick Youngson</a> <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> <a href="http://www.imagecreator.co.uk/">ImageCreator</a>*</span>
+
+level2:
+  title:
+    en: "Hacking technique examples (level 2)"
+  image: level2.png
+  subtitle:
+    en: Customize styles, html and more in Decidim
+  short_description:
+    en: This lesson covers 5 basic techniques to change the default look & feel and behaviours of Decidim.
+  hashtag: "#decidim-hacks"
+  developer_group:
+    en: Platoniq
+  local_area:
+    en: The Internet
+  target:
+    en: Coders starting with Decidim
+  description:
+    en: |
+      # Techniques of Hacking
+
+      ## Before you start:
+
+      Many of the exercises require 2 basic things:
+
+      1. A proper text editor, there's many (free) options available. If unsure donwload Code:
+         [Visual Studio Code](https://code.visualstudio.com/)
+
+      2. Access to a second terminal meanwhile the one with `docker-compose` is running. This will allow you to log into the emulated machine and access to the Rails console and the database.
+
+      ## Howtos
+
+      These are common operations required in the exercises. Use it as reference:
+
+      #### Reload Rails
+
+      Some changes that you make in the file system requires you to restart the server so Rails reloads the configuration from scratch. There's two ways to do that, either you use the CTRL+C to close `docker-compose` and the execute `docker-compose up` again or you just open another terminal and execute this order:
+
+      ```bash
+      docker-compose exec app bin/rails restart
+      ```
