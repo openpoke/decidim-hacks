@@ -15,6 +15,8 @@ if !Rails.env.production? || ENV["SEED"]
   images_root = File.join(seeds_root, 'images')
   content_root = File.join(seeds_root, 'content')
 
+  Decidim::User.find_by(email: "admin@example.org").update!(password_updated_at: Time.current))
+
 	organization = Decidim::Organization.first
   organization.name = "Hacking Decidim"
   organization.description = {
@@ -59,6 +61,6 @@ if !Rails.env.production? || ENV["SEED"]
 
   unpromote_all
   # Create/update processes that will hold the examples
-  # seed_process('processes.yml')
+  seed_process('processes.yml')
 
 end

@@ -15,27 +15,33 @@ module DecidimHacks
 		def seed_process(file)
 		  processes = YAML.load_file(File.join(@@content_root, file))
 		  processes.each do |slug, parts|
-		    params = {
-		      slug: slug,
-		      promoted: true,
-		      organization: @@organization,
-		      end_date: 2.months.from_now,
-		    }
-		    parts.each do |key, text|
-		      text = multi_render(text) if key.in? ["short_description", "description"]
-		      if key == "image"
-		        params[:hero_image] = File.open(File.join(@@seeds_root, text))
-		        params[:banner_image] = params[:hero_image]
-		      else
-		      	params[key] = text
-		      end
-		    end
-
-		    process = Decidim::ParticipatoryProcess.find_by(slug: slug) || Decidim::ParticipatoryProcess.create!(params.merge({
+		    process = Decidim::ParticipatoryProcess.find_by(slug: slug) || Decidim::ParticipatoryProcess.new(
+		    	slug: slug,
 		      start_date: Date.current,
 		      published_at: 2.weeks.ago,
-		    }))
-		    process.update_attributes params
+		    )
+		    process.promoted = true
+		    process.organization = @@organization
+		    process.end_date = 2.months.from_now
+
+		    parts.each do |key, text|
+		      next if key == "image"
+
+		      text = multi_render(text) if key.in? ["short_description", "description"]
+	      	process.send("#{key}=", text)
+		    end
+
+		    if (image = parts["image"])
+		    	image = File.join(@@images_root, image)
+			    process.hero_image.attach(
+			    						      io: File.new(image),
+			    						      filename: File.basename(image), 
+			    						      content_type: "image/png")
+			    process.banner_image.attach(
+			    						      io: File.new(image),
+			    						      filename: File.basename(image), 
+			    						      content_type: "image/png")
+			  end
 		    process.save!
 
 		    extract_images_from_html(process.description["en"]).each do |image|
@@ -44,7 +50,7 @@ module DecidimHacks
 		    end
 		    process.save!
 
-		    seed_proposals("#{slug}.yml", process)
+		    # seed_proposals("#{slug}.yml", process)
 		  end
 		end
 
@@ -93,7 +99,12 @@ module DecidimHacks
       Decidim::Attachment.find_by(title: {en: image}).try(:destroy)
 			Decidim::Attachment.create!(
         title: {en: image},
-        file: File.open(File.join(@@seeds_root, image)),
+        file: ActiveStorage::Blob.create_and_upload!(
+          io: File.open(File.join(@@images_root, image)),
+          filename: image,
+          content_type: "image/png"
+        ),
+        content_type: "image/png",
         attached_to: entity
       )
 		end

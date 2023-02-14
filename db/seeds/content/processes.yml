@@ -1,14 +1,14 @@
 level1:
   title:
     en: Basic Hacking examples (level 1)
-  image: beginners.jpg
+  image: beginners.png
   subtitle:
     en: Learn some basics to customize Decidim
   short_description:
     en: This lesson covers some basics customizations.
   hashtag: "#decidim-hacks"
   developer_group:
-    en: Platoniq
+    en: PokeCode
   local_area:
     en: The Internet
   target:
@@ -17,15 +17,14 @@ level1:
     en: |
       # Basic hacks
 
-      **Congratulations!** If you are seeing this page it means that you've manage to get Docker up and running
+      > **Congratulations!**
+      > If you are seeing this page it means that you've managed to get Docker up and running
 
       ## Before you start:
 
       Many of the exercises require 2 basic things:
 
-      1. A proper text editor, there's many (free) options available. If unsure donwload Code:
-         [Visual Studio Code](https://code.visualstudio.com/)
-
+      1. A proper text editor, there's many (free) options available. If unsure donwload VS Code: [Visual Studio Code](https://code.visualstudio.com/)
       2. Access to a second terminal meanwhile the one with `docker-compose` is running. This will allow you to log into the emulated machine and access to the Rails console and the database.
 
       ## Howtos
@@ -77,7 +76,7 @@ level2:
     en: This lesson covers 5 basic techniques to change the default look & feel and behaviours of Decidim.
   hashtag: "#decidim-hacks"
   developer_group:
-    en: Platoniq
+    en: PokeCode
   local_area:
     en: The Internet
   target:
@@ -90,9 +89,7 @@ level2:
 
       Many of the exercises require 2 basic things:
 
-      1. A proper text editor, there's many (free) options available. If unsure donwload Code:
-         [Visual Studio Code](https://code.visualstudio.com/)
-
+      1. A proper text editor, there's many (free) options available. If unsure donwload Code: [Visual Studio Code](https://code.visualstudio.com/)
       2. Access to a second terminal meanwhile the one with `docker-compose` is running. This will allow you to log into the emulated machine and access to the Rails console and the database.
 
       ## Howtos
@@ -106,3 +103,6 @@ level2:
       ```bash
       docker-compose exec app bin/rails restart
       ```
+      ---
+
+      <span style="font-size:0.8em">Cover photo credits: *<a href="https://wiki.pokemoncentral.it/File:Stagione_6_logo.png">Pokemon Central Wiki</a> - Fair use license*</span>

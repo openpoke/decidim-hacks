@@ -1,5 +1,5 @@
 e1:
-  title:  Configure available languages in the system
+  title: "Configure available languages in the system"
   body: |
     When creating a new organization in Decidim (in [/system](/system)), the system lets you choose between the locales defined in the file `config/initializers/decidim.rb`. This file by default is generated with 3 languages only, English, Spanish and Catalan.
 
