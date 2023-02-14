@@ -19,6 +19,8 @@ gem "faker", "~> 2.14"
 
 gem "wicked_pdf", "~> 2.1"
 
+gem "redcarpet", "~> 3.6"
+
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
@@ -36,3 +38,4 @@ end
 
 group :production do
 end
+
