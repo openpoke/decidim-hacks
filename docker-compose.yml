@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: microstudi/decidim-hacks:0.1
+    image: microstudi/decidim-hacks:0.2
     # build: .
     # container_name: decidim-hacks
     volumes:
@@ -20,6 +20,7 @@ services:
       - 3035:3035/udp
     links:
       - pg
+    restart: "no"
   pg:
     image: postgres
     environment:

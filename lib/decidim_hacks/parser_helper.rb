@@ -2,7 +2,12 @@ module DecidimHacks
 	module ParserHelper
 
 		def replace_html_image(text, image, replacement)
-			text.gsub!("<img src=\"#{image}\"", "<img src=\"#{replacement}\"")
+			# replace webm for a video tag
+			if image.end_with? ".webm"
+				text.gsub!("<img src=\"#{image}\"", "<video src=\"#{replacement}\"")
+			else
+				text.gsub!("<img src=\"#{image}\"", "<img src=\"#{replacement}\"")
+			end
 		end
 
 		def extract_images_from_html(text)

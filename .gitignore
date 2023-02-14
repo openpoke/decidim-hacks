@@ -17,9 +17,12 @@
 !/log/.keep
 !/tmp/.keep
 *.log
+*.pid
 .npm
 .cache
 .yarn
+.irb_history
+.rspec
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*

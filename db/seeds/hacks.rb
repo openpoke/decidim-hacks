@@ -15,8 +15,9 @@ if !Rails.env.production? || ENV["SEED"]
   images_root = File.join(seeds_root, 'images')
   content_root = File.join(seeds_root, 'content')
 
-  Decidim::User.find_by(email: "admin@example.org").update!(password_updated_at: Time.current))
+  Decidim::User.find_by(email: "admin@example.org").update!(password_updated_at: Time.current)
 
+  puts "Updating organization..."
 	organization = Decidim::Organization.first
   organization.name = "Hacking Decidim"
   organization.description = {
@@ -32,6 +33,11 @@ if !Rails.env.production? || ENV["SEED"]
     filename: "logo_pokecode_white.png", 
     content_type: "image/png"
   )
+  organization.file_upload_settings["allowed_file_extensions"]["image"] << "webm"
+  organization.file_upload_settings["allowed_file_extensions"]["admin"] << "webm"
+  organization.file_upload_settings["allowed_file_extensions"]["default"] << "webm"
+  organization.file_upload_settings["allowed_content_types"]["admin"] << "video/webm"
+  organization.file_upload_settings["allowed_content_types"]["default"] << "video/webm"
   organization.save!
 
 
@@ -44,7 +50,7 @@ if !Rails.env.production? || ENV["SEED"]
     content_type: "image/jpg"
   )
   hero_content_block.settings = {
-    welcome_text_en: "How to personalize Decidim, hacks and tricks!"
+    welcome_text_en: "How to customize Decidim, hacks and tricks!"
   }
   hero_content_block.save!
 

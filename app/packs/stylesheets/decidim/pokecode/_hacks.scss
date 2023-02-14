@@ -24,7 +24,7 @@
 		border: 1px solid #e8e8e8;
 		background: #f0f0f0;
 		p,code {
-			line-height: 0.8;
+			line-height: 1.2;
 		}
 		code {
 			display: block;
@@ -33,6 +33,11 @@
 			border: none;
 		}
 		margin: 1em 0;
+	}
+
+	img,video {
+		width: 100%;
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 
 	blockquote {

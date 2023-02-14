@@ -15,6 +15,7 @@ module DecidimHacks
 		def seed_process(file)
 		  processes = YAML.load_file(File.join(@@content_root, file))
 		  processes.each do |slug, parts|
+		  	puts "Creating process #{slug}..."
 		    process = Decidim::ParticipatoryProcess.find_by(slug: slug) || Decidim::ParticipatoryProcess.new(
 		    	slug: slug,
 		      start_date: Date.current,
@@ -36,11 +37,11 @@ module DecidimHacks
 			    process.hero_image.attach(
 			    						      io: File.new(image),
 			    						      filename: File.basename(image), 
-			    						      content_type: "image/png")
+			    						      content_type: content_type_from(image))
 			    process.banner_image.attach(
 			    						      io: File.new(image),
 			    						      filename: File.basename(image), 
-			    						      content_type: "image/png")
+			    						      content_type: content_type_from(image))
 			  end
 		    process.save!
 
@@ -50,67 +51,82 @@ module DecidimHacks
 		    end
 		    process.save!
 
-		    # seed_proposals("#{slug}.yml", process)
+		    seed_proposals("#{slug}.yml", process)
 		  end
 		end
 
 		def seed_proposals(file, process)
 			# Proposals for a process
-		  params = {
-		    name: {
-		      en: "Exercises"
-		    },
-		    manifest_name: :proposals,
-		    published_at: Time.current,
-		    participatory_space: process
-		  }
-		  component = Decidim::Component.find_by(participatory_space_type: "Decidim::ParticipatoryProcess",
-		                                         participatory_space_id: process.id,
-		                                         name: {en: "Exercises"}) || Decidim::Component.create!(params)
+		  component = Decidim::Component.find_by(participatory_space: process,
+		                                         name: {en: "Exercises"}) || Decidim::Component.new(
+		                                           participatory_space: process,
+		                                           name: {en: "Exercises"})
+		  component.manifest_name = :proposals
+		  component.published_at = Time.current
+		  component.save!
 
 		  exercises = YAML.load_file(File.join(@@content_root, file))
 		  exercises.each do |key, parts|
-		    params = {
-		      component: component,
-		      title: "[#{key}] #{parts['title']}",
-		      body: parts['body'],
-		      answered_at: Time.current,
-		      published_at: Time.current
-		    }
-		    proposal = find_exercise(component.id, key) || Decidim::Proposals::Proposal.new(params)
+		    proposal = find_exercise(component, key) || Decidim::Proposals::Proposal.new(component: component)
+		    proposal.title = { en: "[#{key}] #{parts['title']}" }
+		    puts "Creating exercise #{proposal.title["en"]}..."
+		    proposal.body = { en: parts['body'] }
+		    proposal.answered_at = Time.current
+		    proposal.published_at = Time.current
+
 		    proposal.add_coauthor(@@organization)
+		    # destroy all attachments
+		    proposal.attachments.each do |attach|
+		      attach.file.try(:destroy)
+		      attach.destroy
+		    end
 		    proposal.save!
-		    extract_images_from_md(params[:body]).each do |image|
+		    extract_images_from_md(proposal.body["en"]).each do |image|
 		      attach = attach_image_to(image, proposal)
-		      replace_md_image(params[:body], image, attach.url)
+		      replace_md_image(proposal.body["en"], image, attach.url)
 		    end
 
-		    extract_links_from_md(params[:body]).each do |link|
+		    extract_links_from_md(proposal.body["en"]).each do |link|
 		      # find proposal
-		      exercise = find_exercise(component.id, link.sub("/",""))
-		      replace_md_link(params[:body], link, Decidim::ResourceLocatorPresenter.new(exercise).url)
+		      exercise = find_exercise(component, link.sub("/",""))
+		      replace_md_link(proposal.body["en"], link, Decidim::ResourceLocatorPresenter.new(exercise).url)
 		    end
-		    proposal.update_attributes params
 		    proposal.save!
 		  end
 		end
 
 		def attach_image_to(image, entity)
-      Decidim::Attachment.find_by(title: {en: image}).try(:destroy)
+			if (attachment = Decidim::Attachment.find_by(title: {en: image}))
+				attachment.file.try(:destroy)
+				attachment.destroy
+			end
 			Decidim::Attachment.create!(
         title: {en: image},
+        attached_to: entity,
+        content_type: content_type_from(image),
         file: ActiveStorage::Blob.create_and_upload!(
           io: File.open(File.join(@@images_root, image)),
           filename: image,
-          content_type: "image/png"
-        ),
-        content_type: "image/png",
-        attached_to: entity
+          content_type: content_type_from(image)
+        )
       )
 		end
 
-		def find_exercise(component_id, key)
-			Decidim::Proposals::Proposal.where("decidim_component_id=#{component_id} AND title LIKE '[#{key}] %'").first
+		def content_type_from(image)
+			case File.extname(image)
+			when ".png"
+				"image/png"
+			when ".jpg", ".jpeg"
+				"image/jpeg"
+			when ".gif"
+				"image/gif"
+			when ".webm"
+				"video/webm"
+			end
+		end
+
+		def find_exercise(component, key)
+			Decidim::Proposals::Proposal.where(component: component).where("title->>'en' LIKE ?", "[#{key}] %").first
 		end
 	end
 end

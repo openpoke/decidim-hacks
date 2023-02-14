@@ -56,13 +56,19 @@ e2:
 
     #### Step 3:
 
-    🍾 Check in local! http://localhost:3000/
+    Now we need to tell decidim to load our custom CSS file. This is done by modifying the `decidim_application.scss` file:
 
     ![](1e2p3.png)
 
+    #### Step 4:
+
+    🍾 Check in local! http://localhost:3000/
+
+    ![](1e2p4.png)
+
     ---
 
-    `PRO-TIP!`  You’re not a hacker if you don’t `git commit -a -m "add 90’s background"`
+    `PRO-TIP!`  You’re not a hacker if you don’t `git commit -a -m "add a cool title background"`
 
     > **In "just show me the code" mood?**
     >
@@ -87,24 +93,10 @@ e3:
 
     Add the jQuery plugin to the system.
 
-    1) Download the jQuery plugin from:
+    First, download the jQuery plugin from: https://github.com/peachananr/simple-text-rotator
 
-       https://github.com/peachananr/simple-text-rotator
-
-       a) JS file: `vendor/assets/javascripts/jquery.simple-text-rotator.js`
-
-       b) CSS file: `vendor/assets/stylesheets/simpletextrotator.css`
-
-
-    2) Edit `application.css` & `application.js` and tell them to require the downloaded files.
-
-    ![](1e3p2.png)
-
-    `IMPORTANT!` RELOAD THE SERVER NOW:
-
-    ```bash
-    docker-compose exec app bin/rails restart
-    ```
+     a) JS file: `app/packs/src/vendor/jquery.simple-text-rotator.js`
+     b) CSS file: `app/packs/stylesheets/vendor/simpletextrotator.css`
 
     #### Step 2:
 
@@ -134,42 +126,67 @@ e3:
 
     Edit the file. `app/cells/decidim/content_blocks/hero/show.erb`
 
-    We will remove any string coming from the database (sorry admins, no more Hero editing for you) and put a fixed phrase:
+    We will remove any string coming from the database (sorry admins, no more Hero editing for you) and change it for a fixed phrase:
 
     ![](1e3p5.png)
 
     ```html
-    Decidim Hacks is a <span class="rotate">cool, sexy, awesome, amazing, massive, terrible</span><br>place
+    Decidim Hacks is a <span class="rotate">cool, sexy, awesome, massive</span><br>hackathon to build a better democracy
     ```
 
     #### Step 5:
 
-    Create your own javascript that initializes everything, for instance: `app/assets/javascripts/autoinclude/hero-fx.js`
+    Create your own javascript that initializes everything, for instance: `app/packs/src/decidim/hero-fx.js`
 
     ![](1e3p6.png)
 
+    Now it is important to tell decidim to load our custom JS/SCSS files. This is done by modifying the `decidim_application.js` and `decidim_application.scss` files:
+
+    ![](1e3p7.png)
+
     🍾 Check in local! http://localhost:3000/
+
+    ![](1e3p8.png)
 
     #### Recapitulation:
 
     **Files changed:**
 
-    ![](1e3p7.png)
+    ```
+    .
+    ├── app
+    │   ├── cells
+    │   │   └── decidim
+    │   │       └── content_blocks
+    │   │           └── hero
+    │   │               └── show.erb
+    │   ├── packs
+    │   │   ├── src
+    │   │   │   ├── decidim
+    │   │   │   │   ├── decidim_application.js
+    │   │   │   │   └── hero-fx.js
+    │   │   │   └── vendor
+    │   │   │       ├── jquery.simple-text-rotator.js
+    │   │   │       └── run_prettify.js
+    │   │   └── stylesheets
+    │   │       └── vendor
+    │   │           └── simpletextrotator.css
+
+    ```
 
     **Steps:**
 
     1. Added external (vendor) javascript/css to the project
     2. Configured Rails to load those files
-    3. Restarted Rails
-    4. Overwritten the Hero view.
-    5. Applied some custom javascript (activate the plugin)
+    3. Overwritten the Hero view.
+    4. Applied some custom javascript (activate the plugin)
 
 
     #### Step 6:
 
     🎆 Enjoy something kitsch! http://localhost:3000/
 
-    ![](1e3p8.gif)
+    ![](1e3p9.webm)
 
     ---
 
@@ -220,11 +237,29 @@ e4:
 
     Recapitulation:
 
-    ![](1e4p4.png)
+
+    ```
+    .
+    ├── app
+    │   ├── packs
+    │   │   └── src
+    │   │       └── decidim
+    │   │           └── decidim_application.js
+    │   ├── helpers
+    │   │   └── application_helper.rb
+    │   │           └── hero-fx.js
+    │   └── views
+    │       └── layouts
+    │           └── decidim
+    │               └── _wrapper.html.erb
+    └── config
+        └── locales
+            └── en.yml
+    ```
 
     🥂 Celebrate! http://localhost:3000/
 
-    ![](1e4p5.gif)
+    ![](1e4p5.webm)
 
     ---
 

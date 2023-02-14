@@ -24,8 +24,15 @@ echo
 echo -e "\e[32mGreat! Please use this user/password to login:"
 echo
 echo -e "\e[31madmin@example.org"
-echo -e "\e[31mdecidim1234567890"
+echo -e "\e[31mdecidim123456789"
 echo
 echo -e "\e[33mStarting rails server..."
-# bundle exec puma
-bin/rails server -b 0.0.0.0
+
+bin/rails server -b 0.0.0.0 2>&1
+
+# stop supervisor if last command failed
+if [ $? -ne 0 ]; then
+    echo -e "\e[31mSomething went wrong. Stopping supervisor..."
+    echo -e "\e[31mPlease press CTRL+C to stop the container."
+    kill -QUIT $(cat supervisord.pid)
+fi
