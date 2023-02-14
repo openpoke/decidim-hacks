@@ -16,6 +16,10 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+*.log
+.npm
+.cache
+.yarn
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
