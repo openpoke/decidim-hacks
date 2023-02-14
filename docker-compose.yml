@@ -1,26 +1,33 @@
 version: '3'
 services:
   app:
-    image: decidim/decidim:0.27.1
+    image: microstudi/decidim-hacks:0.1
+    # build: .
+    # container_name: decidim-hacks
     volumes:
       - .:/app
       - bundle:/usr/local/bundle
-      - node_modules:/app/node_modules
     environment:
       - PORT=3000
       - DATABASE_HOST=pg
       - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
       - RAILS_ENV=development
+      - RAILS_LOG_TO_STDOUT=1
     ports:
       - 3000:3000
+      - 3035:3035
+      - 3035:3035/udp
     links:
       - pg
-    command: bundle exec puma
   pg:
     image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=decidim_hacks_development
     volumes:
       - pg-data:/var/lib/postgresql/data
 volumes:
-  node_modules: {}
   bundle: {}
   pg-data: {}

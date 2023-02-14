@@ -3,3 +3,5 @@
 
 // Load images
 require.context("../../images", true)
+
+console.log("Hello from Decidim Hacks!");
