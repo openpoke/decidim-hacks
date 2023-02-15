@@ -1,2 +1,0 @@
-pwd
-rm tmp/* -rf
