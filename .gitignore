@@ -37,6 +37,7 @@
 /public/assets
 /public/decidim-packs
 .byebug_history
+.openvscode-server
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
