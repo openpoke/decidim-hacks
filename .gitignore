@@ -22,6 +22,7 @@
 .cache
 .yarn
 .irb_history
+.bash_history
 .rspec
 
 # Ignore pidfiles, but keep the directory.
