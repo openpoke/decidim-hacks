@@ -233,6 +233,12 @@ e4:
 
     ![](1e4p3.png)
 
+    #### Step 4:
+
+    Edit the javascript file: `app/packs/src/decidim/hero-fx.js` to apply a different effect:
+
+    ![](1e4p4.png)
+    
     #### Step 5:
 
     Recapitulation:
