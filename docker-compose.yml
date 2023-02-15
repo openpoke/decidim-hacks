@@ -29,6 +29,14 @@ services:
       - POSTGRES_DB=decidim_hacks_development
     volumes:
       - pg-data:/var/lib/postgresql/data
+  openvscode-server:
+    image: "gitpod/openvscode-server"
+    volumes:
+     - .:/home/workspace:cached
+    environment:
+      - VSCODE_PLUGINS='ruby-on-rails,autocomplete-ruby'
+    ports:
+      - 8080:3000
 volumes:
   bundle: {}
   pg-data: {}
