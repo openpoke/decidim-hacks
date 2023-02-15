@@ -34,6 +34,7 @@
 !/storage/.keep
 
 /public/assets
+/public/decidim-packs
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
