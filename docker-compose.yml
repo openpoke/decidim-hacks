@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: microstudi/decidim-hacks:0.3
+    image: microstudi/decidim-hacks:latest
     # build: .
     # container_name: decidim-hacks
     volumes:

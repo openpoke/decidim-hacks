@@ -60,8 +60,13 @@ Every time you start the application, a set of exercises is created automaticall
 
 ![](db/seeds/images/exercises.png)
 
+## The integrated VS Code editor
 
+You can use the integrated VS Code editor to edit the files of the application. 
 
+Use the following link to access it after you have started the application: http://localhost:8080/?folder=/home/workspace
+
+![](db/seeds/images/vscode.png)
 
 ## Hack something
 
