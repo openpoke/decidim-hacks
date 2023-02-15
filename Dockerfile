@@ -44,6 +44,7 @@ COPY . /app
 # Add user
 RUN addgroup --system --gid 1000 app && \
     adduser --system --uid 1000 --home /app --group app && \
+    chmod 777 -R /app/tmp && \
     chown -R app:app /app
 
 USER app
