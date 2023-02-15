@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  hacker_words:
+    word1: Cows can fly too!
+    word2: What about turtles?
+    word3: Jellyfish can fly!
+    word4: I can fly!

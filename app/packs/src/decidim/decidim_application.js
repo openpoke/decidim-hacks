@@ -4,6 +4,7 @@
 // Load images
 require.context("../../images", true)
 
-require("../vendor/run_prettify")
+require("../vendor/run_prettify");
 
-console.log("Hello from Decidim Hacks!");
+require("../vendor/jquery.simple-text-rotator");
+require("./hero-fx");
