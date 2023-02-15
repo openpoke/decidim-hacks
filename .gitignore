@@ -20,6 +20,7 @@
 *.pid
 .npm
 .cache
+!.cache/.keep
 .yarn
 .irb_history
 .bash_history
