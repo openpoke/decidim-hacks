@@ -19,6 +19,7 @@
 *.log
 *.pid
 .npm
+!.npm/.keep
 .cache
 !.cache/.keep
 .yarn
@@ -46,3 +47,4 @@
 # Ignore public uploads
 public/uploads
 node_modules/
+!node_modules/.keep
