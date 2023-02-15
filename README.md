@@ -72,6 +72,31 @@ Use the following link to access it after you have started the application: http
 
 You can open the file `app/views/layouts/decidim/_head_extra.html.erb` and change something in it, then refresh your browser.
 
+## Troubleshooting
+
+### Permissions problems
+
+If you are forced to run Docker as root (ie: to use `sudo`), you might have to change the permissions of the files in your local repository in order to make it work. You can do it by running the following commands:
+
+```bash
+cd decidim-hacks
+find . \( -type d -exec chmod 777 {} \; \) -o \( -type f -exec chmod 666 {} \; \)
+chmod 777 entrypoint.sh bin/* node_modules/* -R
+```
+
+(Prefix `sudo` if needed)
+
+### Full reset
+
+To completely reset the environment, you can use the following commands:
+
+```bash
+docker-compose down --volumes
+docker-compose up
+```
+
+(Prefix `sudo` if needed)
+
 ## Credits & Contributing
 
 You are welcome to contribute by posting issues or PR.
