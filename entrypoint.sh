@@ -2,7 +2,11 @@
 
 # Temp files created by the container will be erasable by external user
 umask 0000
+# just in case to allow edits from the integrated browser editor
+find . \( -type d -exec chmod 777 {} \; \) -o \( -type f -exec chmod 666 {} \; \)
+chmod 777 entrypoint.sh bin/* node_modules/* -R
 chmod +X tmp -R
+# ensure latest updates
 bundle install
 echo -e "\e[33mUpgrading Decidim..."
 bin/rails decidim:upgrade
