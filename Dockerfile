@@ -1,4 +1,4 @@
-FROM ruby:3.0 AS builder
+FROM ruby:3.3.10 AS builder
 LABEL maintainer="ivan@pokecode.net"
 
 RUN apt-get update && apt-get upgrade -y && apt-get install gnupg2 && \

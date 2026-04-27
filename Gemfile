@@ -11,15 +11,9 @@ gem "decidim", "0.27.1"
 # gem "decidim-initiatives", "0.27.1"
 # gem "decidim-templates", "0.27.1"
 
-gem "bootsnap", "~> 1.3"
+gem "bootsnap"
+gem "puma"
 
-gem "puma", ">= 5.0.0"
-
-gem "faker", "~> 2.14"
-
-gem "wicked_pdf", "~> 2.1"
-
-gem "redcarpet", "~> 3.6"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
@@ -29,13 +23,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "letter_opener_web", "~> 2.0"
-  gem "listen", "~> 3.1"
-  gem "spring", "~> 2.0"
-  gem "spring-watcher-listen", "~> 2.0"
-  gem "web-console", "~> 4.2"
+  gem "letter_opener_web"
+  gem "listen"
+  gem "web-console"
 end
-
-group :production do
-end
-
