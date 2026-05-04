@@ -13,22 +13,10 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
-!log/.keep
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-*.log
-*.pid
-.npm
-!.npm/.keep
-.cache
-!.cache/.keep
-.yarn
-.irb_history
-.bash_history
-.rspec
 
-# Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
@@ -36,16 +24,46 @@
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 /public/assets
-/public/decidim-packs
-.byebug_history
-.openvscode-server
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore public uploads
-public/uploads
-node_modules/
-!node_modules/.keep
+# Ignore env configuration files
+.env
+.envrc
+.rbenv-vars
+mise.toml
+
+# Others
+.vscode
+.byebug*
+*.gem
+*.sql
+.rubocop-http*
+/coverage/
+backups/*
+!backups/.keep
+
+# Ignore the files and folders generated through Webpack
+/public/packs
+/public/packs-test
+/public/decidim-packs
+/public/packs-test
+/public/sw.js*
+/public/sw.js.map*
+/app/views/static/api
+
+# Ignore node modules
+/node_modules
+/packages/*/node_modules
+npm_debug.log
+
+# Ignore Tailwind configuration
+tailwind.config.js
+.rspec-failures
+

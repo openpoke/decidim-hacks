@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim (originally 20180227131727)
 
+# This migration comes from decidim (originally 20180227131727)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:56 UTC
 class CreateParticipatorySpaceLinks < ActiveRecord::Migration[5.0]
   def change
     create_table :decidim_participatory_space_links do |t|

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim_proposals (originally 20171201122623)
 
+# This migration comes from decidim_proposals (originally 20171201122623)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:57 UTC
 class AddCounterCacheEndorsementsToProposals < ActiveRecord::Migration[5.1]
   def change
     add_column :decidim_proposals_proposals, :proposal_endorsements_count, :integer, null: false, default: 0

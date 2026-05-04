@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim_accountability (originally 20170426104125)
 
+# This migration comes from decidim_accountability (originally 20170426104125)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:56 UTC
 class CreateAccountabilityResults < ActiveRecord::Migration[5.0]
   def change
     create_table :decidim_accountability_results do |t|
