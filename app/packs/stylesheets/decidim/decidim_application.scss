@@ -5,5 +5,5 @@
 // To override CSS variables or Foundation settings use _decidim-settings.scss
 //
 // By default this is empty.
-@import "pokecode/custom_header";
-@import "pokecode/hacks";
+@use "stylesheets//decidim/pokecode/custom_header";
+@use "stylesheets//decidim/pokecode/hacks";

@@ -1,6 +1,8 @@
 .pokecode-header {
   background: #800020;
   color: white;
+  position: relative;
+
   >h1 {
     background: url(images/pokecode.png) no-repeat left center;
     background-size: contain;
@@ -13,6 +15,9 @@
     }
   }
   .credits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 0;
     right:0;
