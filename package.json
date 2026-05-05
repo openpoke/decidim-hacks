@@ -1,11 +1,30 @@
 {
   "name": "decidim-hacks",
   "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint -c .eslintrc.json --ext .js app/packs/",
+    "lint-fix": "eslint -c .eslintrc.json --ext .js app/packs/ --fix",
+    "stylelint": "stylelint **/*.scss",
+    "stylelint-fix": "stylelint **/*.scss --fix",
+    "prettier": "prettier --check '**/*.scss'",
+    "prettify": "prettier --write '**/*.scss'"
+  },
   "dependencies": {
     "@decidim/browserslist-config": "file:packages/browserslist-config",
     "@decidim/core": "file:packages/core",
-    "@decidim/elections": "^0.27.2",
-    "@decidim/webpacker": "file:packages/webpacker"
+    "@decidim/webpacker": "file:packages/webpacker",
+    "@rails/actioncable": "^6.1.710",
+    "codemirror": "^5.65.19",
+    "form-storage": "^1.3.5",
+    "formBuilder": "^3.19.13",
+    "highlight.js": "^11.11.1",
+    "inline-attacher": "^0.0.7",
+    "jsrender": "^1.0.15",
+    "leaflet.featuregroup.subgroup": "^1.0.2",
+    "tom-select": "^2.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "version": "0.1.0",
   "devDependencies": {
@@ -13,8 +32,10 @@
     "@decidim/eslint-config": "file:packages/eslint-config",
     "@decidim/prettier-config": "file:packages/prettier-config",
     "@decidim/stylelint-config": "file:packages/stylelint-config",
-    "shakapacker": "^8.3.0",
-    "webpack-dev-server": "^4.11.1"
+    "@tarekraafat/autocomplete.js": "^10.2.7",
+    "postcss-scss": "^4.0.9",
+    "sass-embedded": "~1.57.1",
+    "shakapacker": "^8.3.0"
   },
   "browserslist": [
     "extends @decidim/browserslist-config"
