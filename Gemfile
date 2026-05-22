@@ -10,7 +10,7 @@ gem "decidim", DECIDIM_VERSION
 # gem "decidim-elections", DECIDIM_VERSION
 # gem "decidim-initiatives", DECIDIM_VERSION
 # gem "decidim-templates", DECIDIM_VERSION
-gem "decidim-pokecode", github: "openpoke/decidim-module-pokecode", branch: "main"
+# gem "decidim-pokecode", github: "openpoke/decidim-module-pokecode", branch: "main"
 
 gem "bootsnap", "~> 1.3"
 gem "puma", ">= 6.3.1"

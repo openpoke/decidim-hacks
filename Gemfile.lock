@@ -1,21 +1,4 @@
 GIT
-  remote: https://github.com/openpoke/decidim-module-pokecode.git
-  revision: 99367209c69b958038ee83ff3008c4b0bc672efd
-  branch: main
-  specs:
-    decidim-pokecode (0.3.1)
-      aws-sdk-s3
-      decidim-core (>= 0.31.2, < 0.32)
-      deface (>= 1.5)
-      health_check
-      rails_semantic_logger
-      sentry-rails
-      sentry-ruby
-      sentry-sidekiq
-      sidekiq
-      sidekiq-cron
-
-GIT
   remote: https://github.com/openpoke/decidim.git
   revision: 3ebcf5e16e7009642bdc8ee4baa60be13af2ec7b
   branch: 0.31-backports
@@ -286,25 +269,6 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
-    aws-eventstream (1.4.0)
-    aws-partitions (1.1244.0)
-    aws-sdk-core (3.246.0)
-      aws-eventstream (~> 1, >= 1.3.0)
-      aws-partitions (~> 1, >= 1.992.0)
-      aws-sigv4 (~> 1.9)
-      base64
-      bigdecimal
-      jmespath (~> 1, >= 1.6.1)
-      logger
-    aws-sdk-kms (1.124.0)
-      aws-sdk-core (~> 3, >= 3.244.0)
-      aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.220.0)
-      aws-sdk-core (~> 3, >= 3.244.0)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.5)
-    aws-sigv4 (1.12.1)
-      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.3.0)
     batch-loader (2.0.6)
     bcrypt (3.1.22)
@@ -359,9 +323,6 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    cronex (0.15.0)
-      tzinfo
-      unicode (>= 0.4.4.5)
     css_parser (2.1.0)
       addressable
     csv (3.3.5)
@@ -375,12 +336,6 @@ GEM
     declarative-builder (0.2.0)
       trailblazer-option (~> 0.1.0)
     declarative-option (0.1.0)
-    deface (1.9.0)
-      actionview (>= 5.2)
-      nokogiri (>= 1.6)
-      polyglot
-      railties (>= 5.2)
-      rainbow (>= 2.1.0)
     devise (4.9.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -428,8 +383,6 @@ GEM
       temple
     erubi (1.13.1)
     escape_utils (1.3.0)
-    et-orbi (1.4.0)
-      tzinfo
     excon (1.4.2)
       logger
     extended-markdown-filter (0.7.0)
@@ -461,9 +414,6 @@ GEM
       fog-core (>= 1.27, < 3.0)
     formatador (1.2.3)
       reline
-    fugit (1.12.1)
-      et-orbi (~> 1.4)
-      raabro (~> 1.4)
     gemoji (3.0.1)
     geocoder (1.8.6)
       base64 (>= 0.1.0)
@@ -491,8 +441,6 @@ GEM
     hashdiff (1.2.1)
     hashie (5.1.0)
       logger
-    health_check (3.1.0)
-      railties (>= 5.0)
     hexapdf (1.1.1)
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.4, >= 0.4.1)
@@ -535,7 +483,6 @@ GEM
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jmespath (1.6.2)
     json (2.19.5)
     jwt (3.1.2)
       base64
@@ -660,7 +607,6 @@ GEM
     pg_search (2.3.7)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
-    polyglot (0.3.5)
     pp (0.6.3)
       prettyprint
     premailer (1.29.0)
@@ -679,7 +625,6 @@ GEM
     public_suffix (7.0.5)
     puma (6.6.1)
       nio4r (~> 2.0)
-    raabro (1.4.0)
     racc (1.8.1)
     rack (2.2.23)
     rack-attack (6.8.0)
@@ -726,10 +671,6 @@ GEM
     rails-i18n (7.0.10)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
-    rails_semantic_logger (4.20.0)
-      rack
-      railties (>= 5.1)
-      semantic_logger (~> 4.16)
     railties (7.2.3.1)
       actionpack (= 7.2.3.1)
       activesupport (= 7.2.3.1)
@@ -755,8 +696,6 @@ GEM
       tsort
     redcarpet (3.6.1)
     redis (4.8.1)
-    redis-client (0.28.0)
-      connection_pool
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -865,36 +804,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    semantic_logger (4.18.0)
-      concurrent-ruby (~> 1.0)
     semantic_range (3.1.1)
-    sentry-rails (6.5.0)
-      railties (>= 5.2.0)
-      sentry-ruby (~> 6.5.0)
-    sentry-ruby (6.5.0)
-      bigdecimal
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      logger
-    sentry-sidekiq (6.5.0)
-      sentry-ruby (~> 6.5.0)
-      sidekiq (>= 5.0)
     shakapacker (8.3.0)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-    sidekiq (7.3.10)
-      base64
-      connection_pool (>= 2.3.0, < 3)
-      logger
-      rack (>= 2.2.4, < 3.3)
-      redis-client (>= 0.23.0, < 1)
-    sidekiq-cron (2.3.1)
-      cronex (>= 0.13.0)
-      fugit (~> 1.8, >= 1.11.1)
-      globalid (>= 1.0.1)
-      sidekiq (>= 6.5.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -925,7 +841,6 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
-    unicode (0.4.4.5)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
@@ -984,7 +899,6 @@ DEPENDENCIES
   byebug (~> 11.0)
   decidim!
   decidim-dev!
-  decidim-pokecode!
   letter_opener_web
   listen
   puma (>= 6.3.1)
