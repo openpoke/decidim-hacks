@@ -23,8 +23,6 @@ COPY ./Gemfile /app/Gemfile
 COPY ./Gemfile.lock /app/Gemfile.lock
 
 RUN gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | xargs) && \
-    bundle config set --deployment true && \
-    bundle config set --local without 'development test' && \
     bundle install -j4 --retry 3 && \
     npm install yarn -g && \
     # Remove unneeded gems
@@ -63,55 +61,22 @@ COPY ./postcss.config.js /app/postcss.config.js
 RUN mv config/credentials.yml.enc config/credentials.yml.enc.bak 2>/dev/null || true
 RUN mv config/credentials config/credentials.bak 2>/dev/null || true
 
-RUN RAILS_ENV=production \
-    SECRET_KEY_BASE=dummy \
-    RAILS_MASTER_KEY=0b809804a9de874fb0627b6cf5b6cada \
-    DB_ADAPTER=nulldb \
-    bin/rails assets:precompile
-
-RUN SECRET_KEY_BASE=dummy \
-    DB_ADAPTER=nulldb \
-    RAILS_ENV=production \
-    bin/rails decidim_api:generate_docs
-
-RUN mv config/credentials.yml.enc.bak config/credentials.yml.enc 2>/dev/null || true
-RUN mv config/credentials.bak config/credentials 2>/dev/null || true
-
-RUN rm -rf node_modules packages/*/node_modules tmp/* vendor/bundle test spec app/packs .git
-
-# This image is for production env only
-FROM ruby:3.3.10-slim AS final
-
-RUN apt-get update && \
-    apt-get install -y postgresql-client \
-    imagemagick \
-    curl \
-    p7zip \
-    supervisor && \
-    apt-get clean
-
-EXPOSE 3000
-
-ENV RAILS_LOG_TO_STDOUT=true
+ENV RAILS_LOG_TO_STDOUT=""
 ENV RAILS_SERVE_STATIC_FILES=true
-ENV RAILS_ENV=production
+ENV RAILS_ENV=development
 
 ARG RUN_RAILS
 ARG RUN_SIDEKIQ
 
-# Add user
-RUN addgroup --system --gid 1000 app && \
-    adduser --system --uid 1000 --home /app --group app
-
 WORKDIR /app
 COPY ./entrypoint.sh /app/entrypoint.sh
 COPY ./supervisord.conf /etc/supervisord.conf
-COPY --from=builder --chown=app:app /usr/local/bundle/ /usr/local/bundle/
-COPY --from=builder --chown=app:app /app /app
 
-USER app
-HEALTHCHECK --interval=1m --timeout=5s --start-period=30s \
-    CMD (curl -sS http://localhost:3000/health_check | grep success) || exit 1
+RUN chmod +x /app/entrypoint.sh
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+EXPOSE 3000
+EXPOSE 3035
+EXPOSE 3035/udp
+
+#ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]
