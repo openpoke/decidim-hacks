@@ -6,7 +6,6 @@ level1:
     en: Learn some basics to customize Decidim
   short_description:
     en: This lesson covers some basics customizations.
-  hashtag: "#decidim-hacks"
   developer_group:
     en: PokeCode
   local_area:
@@ -75,7 +74,6 @@ level2:
     en: Customize styles, html and more in Decidim
   short_description:
     en: This lesson covers 5 basic techniques to change the default look & feel and behaviours of Decidim.
-  hashtag: "#decidim-hacks"
   developer_group:
     en: PokeCode
   local_area:

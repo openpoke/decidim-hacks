@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require "redcarpet"
 module DecidimHacks
 	module ParserHelper
 

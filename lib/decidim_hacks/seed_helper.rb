@@ -37,12 +37,9 @@ module DecidimHacks
 			    process.hero_image.attach(
 			    						      io: File.new(image),
 			    						      filename: File.basename(image), 
-			    						      content_type: content_type_from(image))
-			    process.banner_image.attach(
-			    						      io: File.new(image),
-			    						      filename: File.basename(image), 
-			    						      content_type: content_type_from(image))
-			  end
+			    						      content_type: content_type_from(image)
+			    )
+		    end
 		    process.save!
 
 		    extract_images_from_html(process.description["en"]).each do |image|
