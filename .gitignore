@@ -67,3 +67,4 @@ npm_debug.log
 tailwind.config.js
 .rspec-failures
 
+.openvscode-server/
