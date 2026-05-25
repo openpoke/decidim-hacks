@@ -61,8 +61,12 @@ backups/*
 
 # Ignore node modules
 /node_modules
+!/node_modules/.keep
 /packages/*/node_modules
 npm_debug.log
+
+.cache
+!.cache/.keep
 
 # Ignore Tailwind configuration
 tailwind.config.js
