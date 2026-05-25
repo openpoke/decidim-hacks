@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim (originally 20191212102051)
 
+# This migration comes from decidim (originally 20191212102051)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:56 UTC
 class RemoveContinuityBadges < ActiveRecord::Migration[5.2]
   class BadgeScore < ApplicationRecord
     self.table_name = :decidim_gamification_badge_scores

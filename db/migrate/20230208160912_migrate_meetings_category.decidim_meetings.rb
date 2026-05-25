@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim_meetings (originally 20170612101925)
 
+# This migration comes from decidim_meetings (originally 20170612101925)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:57 UTC
 class MigrateMeetingsCategory < ActiveRecord::Migration[5.1]
   def change
     # Create categorizations ensuring database integrity

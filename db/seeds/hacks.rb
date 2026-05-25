@@ -19,29 +19,33 @@ if !Rails.env.production? || ENV["SEED"]
 
   puts "Updating organization..."
 	organization = Decidim::Organization.first
-  organization.name = "Hacking Decidim"
+  organization.name = { en: "Hacking Decidim" }
   organization.description = {
     en: "<p>Learn how to hack and manipulate the default Decidim UI/UX and more advanced tunings.</p>"
   }
 
-  organization.cta_button_path = "processes"
-  organization.cta_button_text = {
-    en: "Go to lessons"
-  }
   organization.logo.attach(
-    io: File.new(File.join(images_root, "logo_pokecode_white.png")),
-    filename: "logo_pokecode_white.png", 
+    io: File.new(File.join(images_root, "logo_PokeCode.png")),
+    filename: "logo_PokeCode.png", 
     content_type: "image/png"
   )
   organization.file_upload_settings["allowed_file_extensions"]["image"] << "webm"
   organization.file_upload_settings["allowed_file_extensions"]["admin"] << "webm"
   organization.file_upload_settings["allowed_file_extensions"]["default"] << "webm"
+  organization.file_upload_settings["allowed_content_types"]["admin"] << "image/webm"
+  organization.file_upload_settings["allowed_content_types"]["default"] << "image/webm"
   organization.file_upload_settings["allowed_content_types"]["admin"] << "video/webm"
   organization.file_upload_settings["allowed_content_types"]["default"] << "video/webm"
   organization.save!
 
 
   hero_content_block = Decidim::ContentBlock.find_by(organization: organization, manifest_name: :hero, scope_name: :homepage)
+  hero_content_block[:settings] = (hero_content_block[:settings] || {}).merge(
+    "cta_button_path_en" => "/processes",
+    "cta_button_text_en" => "Go to lessons",
+    "welcome_text_en" => "How to customize Decidim, hacks and tricks!"
+  )
+  hero_content_block.save!
 
   background = Dir[File.join(images_root, "hackers", "*.jpg")].sample
   hero_content_block.images_container.background_image.attach(
@@ -49,10 +53,6 @@ if !Rails.env.production? || ENV["SEED"]
     filename: File.basename(background), 
     content_type: "image/jpg"
   )
-  hero_content_block.settings = {
-    welcome_text_en: "How to customize Decidim, hacks and tricks!"
-  }
-  hero_content_block.save!
 
   help = Decidim::ContextualHelpSection.find_by(section_id: "participatory_processes")
   if help

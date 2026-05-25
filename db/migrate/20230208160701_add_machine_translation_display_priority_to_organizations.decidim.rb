@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim (originally 20200806092109)
 
+# This migration comes from decidim (originally 20200806092109)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:56 UTC
 class AddMachineTranslationDisplayPriorityToOrganizations < ActiveRecord::Migration[5.2]
   class Organization < ApplicationRecord
     self.table_name = "decidim_organizations"

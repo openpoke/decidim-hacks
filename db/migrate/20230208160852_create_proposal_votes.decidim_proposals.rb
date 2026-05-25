@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-# This migration comes from decidim_proposals (originally 20170112115253)
 
+# This migration comes from decidim_proposals (originally 20170112115253)
+# This file has been modified by `decidim upgrade:migrations` task on 2026-05-04 13:34:57 UTC
 class CreateProposalVotes < ActiveRecord::Migration[5.0]
   def change
     create_table :decidim_proposals_proposal_votes do |t|
