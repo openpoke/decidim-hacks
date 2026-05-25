@@ -23,7 +23,7 @@ else
     bin/rails db:seed
 fi
 echo -e "\e[33mSeeding hacks content..."
-# bin/rails db:seed:hacks
+bin/rails db:seed:hacks
 
 echo
 echo -e "\e[32mGreat! Please use this user/password to login:"

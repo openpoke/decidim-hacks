@@ -40,6 +40,7 @@ module DecidimHacks
 			    						      content_type: content_type_from(image)
 			    )
 		    end
+				# TODO: add content blocks!
 		    process.save!
 
 		    extract_images_from_html(process.description["en"]).each do |image|
