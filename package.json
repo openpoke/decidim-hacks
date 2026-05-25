@@ -17,17 +17,25 @@
     "@rails/actioncable": "^6.1.710",
     "codemirror": "^5.65.19",
     "form-storage": "^1.3.5",
-    "formBuilder": "^3.19.13",
+    "formBuilder": "^3.19.15",
     "highlight.js": "^11.11.1",
-    "inline-attacher": "^0.0.7",
+    "inline-attacher": "^0.0.8",
     "jsrender": "^1.0.15",
     "leaflet.featuregroup.subgroup": "^1.0.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tom-select": "^2.2.2"
+    "tom-select": "^2.4.3"
   },
   "version": "0.1.0",
+  "browserslist": [
+    "extends @decidim/browserslist-config"
+  ],
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.1",
+    "@babel/plugin-transform-class-properties": "^7.27.1",
+    "@babel/plugin-transform-classes": "^7.27.1",
+    "@babel/plugin-transform-regenerator": "^7.27.1",
+    "@babel/plugin-transform-runtime": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
     "@decidim/dev": "file:packages/dev",
     "@decidim/eslint-config": "file:packages/eslint-config",
     "@decidim/prettier-config": "file:packages/prettier-config",
@@ -35,9 +43,6 @@
     "@tarekraafat/autocomplete.js": "^10.2.7",
     "postcss-scss": "^4.0.9",
     "sass-embedded": "~1.57.1",
-    "shakapacker": "8.3.0"
-  },
-  "browserslist": [
-    "extends @decidim/browserslist-config"
-  ]
+    "shakapacker": "^8.3.0"
+  }
 }

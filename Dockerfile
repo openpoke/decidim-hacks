@@ -7,7 +7,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y ca-certificates c
     build-essential \
     postgresql-client \
     p7zip \
-    libpq-dev && \
+    libpq-dev \
+    nano \
+    supervisor && \
     apt-get clean
 
 # throw errors if Gemfile has been modified since Gemfile.lock
@@ -23,6 +25,8 @@ COPY ./Gemfile /app/Gemfile
 COPY ./Gemfile.lock /app/Gemfile.lock
 
 RUN gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | xargs) && \
+    bundle config set --deployment true && \
+    bundle config set --local without 'development test' && \
     bundle install -j4 --retry 3 && \
     npm install yarn -g && \
     # Remove unneeded gems
@@ -72,11 +76,9 @@ WORKDIR /app
 COPY ./entrypoint.sh /app/entrypoint.sh
 COPY ./supervisord.conf /etc/supervisord.conf
 
-RUN chmod +x /app/entrypoint.sh
-
 EXPOSE 3000
 EXPOSE 3035
 EXPOSE 3035/udp
 
-#ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["/usr/bin/supervisord"]

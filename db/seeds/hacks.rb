@@ -32,6 +32,8 @@ if !Rails.env.production? || ENV["SEED"]
   organization.file_upload_settings["allowed_file_extensions"]["image"] << "webm"
   organization.file_upload_settings["allowed_file_extensions"]["admin"] << "webm"
   organization.file_upload_settings["allowed_file_extensions"]["default"] << "webm"
+  organization.file_upload_settings["allowed_content_types"]["admin"] << "image/webm"
+  organization.file_upload_settings["allowed_content_types"]["default"] << "image/webm"
   organization.file_upload_settings["allowed_content_types"]["admin"] << "video/webm"
   organization.file_upload_settings["allowed_content_types"]["default"] << "video/webm"
   organization.save!
