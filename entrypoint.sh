@@ -17,12 +17,22 @@ if bin/rails db:migrate; then
 else
     echo -e "\e[31mMigration failed. Installing database"
     bin/rails db:create
-    echo -e "\e[33mExecuting migrations..."
-    bin/rails db:migrate
-    echo -e "\e[32mDatabase just created so let's seed some data..."
-    bin/rails db:seed
+    if [ -f "db/seeds.sql" ]; then
+        echo -e "\e[33mSeeding database with db/seeds.sql..."
+        PGPASSWORD=$DATABASE_PASSWORD psql -U $DATABASE_USERNAME -h $DATABASE_HOST -d decidim_hacks_development -f db/seeds.sql
+    else
+        echo -e "\e[32mDatabase just created so let's seed some data..."
+        bin/rails db:migrate
+        bin/rails db:seed
+    fi
 fi
 echo -e "\e[33mSeeding hacks content..."
+# Check no migrations are pending migrations
+if [ -z "$SKIP_MIGRATIONS" ]; then
+	bundle exec rails db:migrate
+else
+	echo "⚠️ Skipping migrations"
+fi
 bin/rails db:seed:hacks
 
 echo
@@ -31,13 +41,6 @@ echo
 echo -e "\e[31madmin@example.org"
 echo -e "\e[31mdecidim123456789"
 echo
-
-# Check no migrations are pending migrations
-if [ -z "$SKIP_MIGRATIONS" ]; then
-	bundle exec rails db:migrate
-else
-	echo "⚠️ Skipping migrations"
-fi
 
 echo "🚀 $@"
 exec "$@"

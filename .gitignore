@@ -44,6 +44,7 @@ mise.toml
 .byebug*
 *.gem
 *.sql
+!db/seeds.sql
 .rubocop-http*
 /coverage/
 backups/*

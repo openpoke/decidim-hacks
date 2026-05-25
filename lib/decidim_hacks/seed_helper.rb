@@ -40,8 +40,27 @@ module DecidimHacks
 			    						      content_type: content_type_from(image)
 			    )
 		    end
-				# TODO: add content blocks!
 		    process.save!
+
+				Decidim::ContentBlock.find_or_initialize_by(
+					organization: @@organization,
+					manifest_name: :hero,
+					scoped_resource_id: process.id,
+					scope_name: "participatory_process_homepage") do |block|
+					block.weight=1
+					block.published_at=Time.current
+					block.images = {}
+				end.save!
+
+				Decidim::ContentBlock.find_or_initialize_by(
+					organization: @@organization,
+					manifest_name: :main_data,
+					scoped_resource_id: process.id,
+					scope_name: "participatory_process_homepage") do |block|
+					block.weight=2
+					block.published_at=Time.current
+					block.images = {}
+				end.save!
 
 		    extract_images_from_html(process.description["en"]).each do |image|
 		      attach = attach_image_to(image, process)
