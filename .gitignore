@@ -44,10 +44,10 @@ mise.toml
 .byebug*
 *.gem
 *.sql
-!db/seeds.sql
+!/db/seeds.sql
 .rubocop-http*
 /coverage/
-backups/*
+/backups/*
 !backups/.keep
 
 # Ignore the files and folders generated through Webpack
@@ -65,8 +65,8 @@ backups/*
 /packages/*/node_modules
 npm_debug.log
 
-.cache
-!.cache/.keep
+/.cache
+!/.cache/.keep
 
 # Ignore Tailwind configuration
 tailwind.config.js
