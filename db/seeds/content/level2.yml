@@ -102,11 +102,11 @@ e3:
 
     Find the view to overwrite.
 
-    `TIP` Use the inspector tools in your browser to locate a useful identifier (ie: `hero-heading`)
+    `TIP` Use the inspector tools in your browser to locate a useful identifier (ie: `hero__title`)
 
     ![](1e3p3.png)
 
-    `hero-heading` seems reasonably unique
+    `hero__title` seems reasonably unique
 
     `NOTE:` It is not a regular **html.erb** file!
 
