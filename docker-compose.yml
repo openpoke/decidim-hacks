@@ -1,6 +1,6 @@
 services:
   app:
-    # image: microstudi/decidim-hacks:latest
+    image: ghcr.io/openpoke/decidim-hacks:main
     build: .
     volumes:
       - .:/app

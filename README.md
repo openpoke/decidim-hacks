@@ -91,8 +91,9 @@ chmod 777 entrypoint.sh bin/* node_modules/* -R
 To completely reset the environment, you can use the following commands:
 
 ```bash
-docker compose down --volumes
-docker compose up
+docker-compose down --volumes
+docker compose down --rmi all
+docker-compose up
 ```
 
 (Prefix `sudo` if needed)
