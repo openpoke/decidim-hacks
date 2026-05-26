@@ -12,9 +12,6 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y ca-certificates c
     supervisor && \
     apt-get clean
 
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
-
 WORKDIR /app
 
 # Copy package dependencies files only to ensure maximum cache hit
@@ -52,21 +49,9 @@ COPY ./config.ru /app/config.ru
 COPY ./Rakefile /app/Rakefile
 COPY ./postcss.config.js /app/postcss.config.js
 
-# Compile assets with Webpacker or Sprockets
-#
-# Notes:
-#   1. Executing "assets:precompile" runs "webpacker:compile", too
-#   2. For an app using encrypted credentials, Rails raises a `MissingKeyError`
-#      if the master key is missing. Because on CI there is no master key,
-#      we hide the credentials while compiling assets (by renaming them before and after)
-#
-RUN mv config/credentials.yml.enc config/credentials.yml.enc.bak 2>/dev/null || true
-RUN mv config/credentials config/credentials.bak 2>/dev/null || true
-
 ENV RAILS_LOG_TO_STDOUT=""
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_ENV=development
-ENV BUNDLE_WITHOUT=""
 
 ARG RUN_RAILS
 ARG RUN_SIDEKIQ
