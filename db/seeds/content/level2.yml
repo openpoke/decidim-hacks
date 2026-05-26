@@ -17,9 +17,9 @@ e1:
 
     #### Step 2:
 
-    1. Copy the file `decidim-core/app/views/layouts/decidim/_wrapper.html.erb` in your editor.
+    1. Copy the file `decidim-core/app/views/layouts/decidim/header/_main.html.erb` in your editor.
     2. Change what you need.
-    3. Save it in your own place replicating the folder structure (`app/views/layouts/decidim/_wrapper.html.erb`)
+    3. Save it in your own place replicating the folder structure (`app/views/layouts/decidim/header/_main.html.erb`)
 
     ![](1e1p3.png)
 
@@ -102,11 +102,11 @@ e3:
 
     Find the view to overwrite.
 
-    `TIP` Use the inspector tools in your browser to locate a useful identifier (ie: `hero-heading`)
+    `TIP` Use the inspector tools in your browser to locate a useful identifier (ie: `hero__title`)
 
     ![](1e3p3.png)
 
-    `hero-heading` seems reasonably unique
+    `hero__title` seems reasonably unique
 
     `NOTE:` It is not a regular **html.erb** file!
 
@@ -219,7 +219,7 @@ e4:
 
     #### Step 2:
 
-    Edit the layout file: `app/views/layouts/decidim/_wrapper.html.erb`
+    Edit the layout file: `app/views/layouts/decidim/header/_main.html.erb`
 
     Change the previous “*Cool tweaks*” for the method we are going to use:
 
