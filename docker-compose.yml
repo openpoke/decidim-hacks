@@ -1,6 +1,7 @@
 services:
   app:
     image: ghcr.io/openpoke/decidim-hacks:main
+    pull_policy: always
     build: .
     volumes:
       - .:/app
