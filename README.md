@@ -92,6 +92,7 @@ To completely reset the environment, you can use the following commands:
 
 ```bash
 docker-compose down --volumes
+docker compose down --rmi all
 docker-compose up
 ```
 

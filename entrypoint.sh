@@ -29,6 +29,9 @@ else
     fi
 fi
 
+echo -e "\e[33mRandomizing hero image..."
+bin/rails db:seed:randomize
+
 echo
 echo -e "\e[32mGreat! Please use this user/password to login:"
 echo
