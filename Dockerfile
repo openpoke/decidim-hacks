@@ -25,8 +25,6 @@ COPY ./Gemfile /app/Gemfile
 COPY ./Gemfile.lock /app/Gemfile.lock
 
 RUN gem install bundler:$(grep -A 1 'BUNDLED WITH' Gemfile.lock | tail -n 1 | xargs) && \
-    bundle config set --deployment true && \
-    bundle config set --local without 'development test' && \
     bundle install -j4 --retry 3 && \
     npm install yarn -g && \
     # Remove unneeded gems
@@ -68,6 +66,7 @@ RUN mv config/credentials config/credentials.bak 2>/dev/null || true
 ENV RAILS_LOG_TO_STDOUT=""
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_ENV=development
+ENV BUNDLE_WITHOUT=""
 
 ARG RUN_RAILS
 ARG RUN_SIDEKIQ

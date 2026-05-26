@@ -24,16 +24,10 @@ else
         echo -e "\e[32mDatabase just created so let's seed some data..."
         bin/rails db:migrate
         bin/rails db:seed
+        echo -e "\e[33mSeeding hacks content..."
+        bin/rails db:seed:hacks
     fi
 fi
-echo -e "\e[33mSeeding hacks content..."
-# Check no migrations are pending migrations
-if [ -z "$SKIP_MIGRATIONS" ]; then
-	bundle exec rails db:migrate
-else
-	echo "⚠️ Skipping migrations"
-fi
-bin/rails db:seed:hacks
 
 echo
 echo -e "\e[32mGreat! Please use this user/password to login:"
