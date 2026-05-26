@@ -17,9 +17,9 @@ e1:
 
     #### Step 2:
 
-    1. Copy the file `decidim-core/app/views/layouts/decidim/_wrapper.html.erb` in your editor.
+    1. Copy the file `decidim-core/app/views/layouts/decidim/header/_main.html.erb` in your editor.
     2. Change what you need.
-    3. Save it in your own place replicating the folder structure (`app/views/layouts/decidim/_wrapper.html.erb`)
+    3. Save it in your own place replicating the folder structure (`app/views/layouts/decidim/header/_main.html.erb`)
 
     ![](1e1p3.png)
 

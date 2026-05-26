@@ -80,16 +80,17 @@ module DecidimHacks
 		                                           name: {en: "Exercises"})
 		  component.manifest_name = :proposals
 		  component.published_at = Time.current
+			component.settings = { default_sort_order: "recent" }
 		  component.save!
 
 		  exercises = YAML.load_file(File.join(@@content_root, file))
-		  exercises.each do |key, parts|
+		  exercises.each_with_index do |(key, parts), index|
 		    proposal = find_exercise(component, key) || Decidim::Proposals::Proposal.new(component: component)
 		    proposal.title = { en: "[#{key}] #{parts['title']}" }
 		    puts "Creating exercise #{proposal.title["en"]}..."
 		    proposal.body = { en: parts['body'] }
 		    proposal.answered_at = Time.current
-		    proposal.published_at = Time.current
+		    proposal.published_at = (index + 1).minutes.ago
 
 		    proposal.add_coauthor(@@organization)
 		    # destroy all attachments
@@ -98,17 +99,19 @@ module DecidimHacks
 		      attach.destroy
 		    end
 		    proposal.save!
-		    extract_images_from_md(proposal.body["en"]).each do |image|
-		      attach = attach_image_to(image, proposal)
-		      replace_md_image(proposal.body["en"], image, attach.url)
-		    end
 
-		    extract_links_from_md(proposal.body["en"]).each do |link|
-		      # find proposal
-		      exercise = find_exercise(component, link.sub("/",""))
-		      replace_md_link(proposal.body["en"], link, Decidim::ResourceLocatorPresenter.new(exercise).url)
-		    end
-		    proposal.save!
+		    body = md_render(parts['body'])
+				extract_images_from_html(body).each do |image|
+					attach = attach_image_to(image, proposal)
+					replace_html_image(body, image, attach.url)
+				end
+
+				extract_links_from_md(body).each do |link|
+					exercise = find_exercise(component, link.sub("/",""))
+					replace_md_link(body, link, Decidim::ResourceLocatorPresenter.new(exercise).url)
+				end
+				proposal.body = { "en" => body }
+				proposal.save!
 		  end
 		end
 
