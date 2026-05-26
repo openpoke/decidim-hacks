@@ -4,7 +4,7 @@ Free Open-Source participatory democracy, citizen participation and open governm
 
 This is the open-source repository for decidim-hacks, based on [Decidim](https://github.com/decidim/decidim).
 
-![](db/seeds/images/1e2p4.png)
+![](db/seeds/images/homepage.png)
 
 ## Setting up the application
 
@@ -39,7 +39,7 @@ git clone https://github.com/openpoke/decidim-hacks.git
 Just open a terminal where you have cloned or downloaded this repository and execute:
 
 ```
-docker-compose up
+docker compose up
 ```
 
 Depending on your case you might have to add `sudo` before the command. Is going to be a while the first time...
@@ -48,7 +48,7 @@ Point your browser to: http://localhost:3000
 
 > **NOTE:** If you are using Windows and Docker Toolbox, `localhost` cannot be used to access a docker container. You can use the following command (while docker is up) to change it:
 > ```
-> docker-compose exec app bin/rails db:seed:hostname-windows-toolbox
+> docker compose exec app bin/rails db:seed:hostname-windows-toolbox
 > ```
 > After that, you can use the address http://192.168.99.100:3000 instead.
 > 
@@ -58,7 +58,7 @@ Point your browser to: http://localhost:3000
 
 Every time you start the application, a set of exercises is created automatically, just follow the instructions in your browser. Look for the participatory processes "Level 1" and "Level 2" and, in there, open the "Exercises" component and follow the steps in order (recommended):
 
-![](db/seeds/images/exercises.png)
+![](db/seeds/images/processes_exercises.png)
 
 ## The integrated VS Code editor
 
@@ -91,8 +91,8 @@ chmod 777 entrypoint.sh bin/* node_modules/* -R
 To completely reset the environment, you can use the following commands:
 
 ```bash
-docker-compose down --volumes
-docker-compose up
+docker compose down --volumes
+docker compose up
 ```
 
 (Prefix `sudo` if needed)
