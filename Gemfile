@@ -27,3 +27,5 @@ group :development do
   gem "listen"
   gem "web-console"
 end
+
+gem "jwt", "= 3.1.2"
