@@ -2,7 +2,7 @@
 
 ## Step 1: Try to install normal Docker
 
-If you can install normal Docker as [is explained in here](https://runnable.com/docker/install-docker-on-windows-10), that's the best option. If everything goes well for you, hurrah! you can jump directly to Step 3.
+If you can install normal Docker as [is explained in here](https://docs.docker.com/desktop/setup/install/windows-install), that's the best option. If everything goes well for you, hurrah! you can jump directly to Step 3.
 
 Unfortunately, if you are using Windows Home or some other "minor" version is very likely that when clicking in the `InstallDocker.msi` will show you some message like this:
 
